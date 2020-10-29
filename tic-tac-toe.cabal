@@ -1,0 +1,145 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: d2d3dff4f3e8e15b0afc66b7a01e0bdbb43842944d9dd8252a207c2c29f6115a
+
+name:           tic-tac-toe
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/tic-tac-toe#readme>
+homepage:       https://github.com/githubuser/tic-tac-toe#readme
+bug-reports:    https://github.com/githubuser/tic-tac-toe/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/tic-tac-toe
+
+library
+  exposed-modules:
+      Client.Lib
+      Client.Requests
+      Client.Types
+      Client.UI
+      Server.Controllers
+      Server.Lib
+      Server.Models
+      Server.Types
+      Shared.API
+      Shared.Types
+  other-modules:
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , brick
+    , bytestring
+    , containers
+    , cryptonite
+    , http-client
+    , mtl
+    , servant
+    , servant-client
+    , servant-server
+    , splitmix
+    , stm
+    , text
+    , vty
+    , warp
+  default-language: Haskell2010
+
+executable tic-tac-toe-client
+  main-is: Main.hs
+  other-modules:
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      client
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , brick
+    , bytestring
+    , containers
+    , cryptonite
+    , http-client
+    , mtl
+    , servant
+    , servant-client
+    , servant-server
+    , splitmix
+    , stm
+    , text
+    , tic-tac-toe
+    , vty
+    , warp
+  default-language: Haskell2010
+
+executable tic-tac-toe-server
+  main-is: Main.hs
+  other-modules:
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      server
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , brick
+    , bytestring
+    , containers
+    , cryptonite
+    , http-client
+    , mtl
+    , servant
+    , servant-client
+    , servant-server
+    , splitmix
+    , stm
+    , text
+    , tic-tac-toe
+    , vty
+    , warp
+  default-language: Haskell2010
+
+test-suite tic-tac-toe-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Server.ModelsSpec
+      Paths_tic_tac_toe
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      QuickCheck
+    , aeson
+    , base >=4.7 && <5
+    , brick
+    , bytestring
+    , containers
+    , cryptonite
+    , hspec
+    , http-client
+    , mtl
+    , servant
+    , servant-client
+    , servant-server
+    , splitmix
+    , stm
+    , text
+    , tic-tac-toe
+    , vty
+    , warp
+  default-language: Haskell2010
