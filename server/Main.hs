@@ -1,10 +1,10 @@
 module Main where
 
-import           Control.Concurrent.STM.TVar
-import qualified Data.Map.Strict             as Map
-import           Server.Lib
-import           Server.Types
-import           System.Random.SplitMix      (initSMGen)
+import Control.Concurrent.STM.TVar
+import qualified Data.Map.Strict as Map
+import Server.Lib
+import Server.Types
+import System.Random.SplitMix (initSMGen)
 
 
 port :: Int

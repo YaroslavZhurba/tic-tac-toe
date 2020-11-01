@@ -4,20 +4,23 @@
 
 module Shared.Types where
 
-import           Data.Aeson
-import           Data.Map.Strict (Map)
-import           Data.Text
-import           GHC.Generics
+-- fromJson, toJson
+import Data.Aeson
+import Data.Map.Strict (Map)
+-- A space efficient, packed, unboxed Unicode text type
+import Data.Text
+-- used for fromJSON and toJSON
+import GHC.Generics
 
 
 data Player
-  = PlayerX
-  | Player0
+  = PlayerX | Player0
   deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
 
 data Board = Board
   { boardSize  :: BoardSize
+    -- key - Coords, value - Cell
   , boardCells :: Map Coords Cell
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
@@ -34,7 +37,7 @@ newtype BoardSize = BoardSize { unBoardSize :: Int }
 data NewGame = NewGame Board Player GameToken
   deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
-
+-- import Data.Text
 newtype GameToken = GameToken Text
   deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
@@ -43,6 +46,7 @@ data GameStatus a
   = GameOk a
   | GameFinished GameResult Board
   | GameError GameError
+  | GameTerminated
   deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
 
@@ -54,6 +58,7 @@ instance Functor GameStatus where
 
 instance Applicative GameStatus where
   pure = pure
+  -- (<*>) :: f (a -> b) -> f a -> f b
   (GameOk f) <*> (GameOk x) = GameOk (f x)
   (GameOk _) <*> (GameFinished x y) = GameFinished x y
   (GameOk _) <*> (GameError x) = GameError x
@@ -63,6 +68,7 @@ instance Applicative GameStatus where
 
 instance Monad GameStatus where
   return = GameOk
+  -- (>>=) :: Monad m => m a -> (a -> m b) -> m b
   (GameOk x) >>= f = f x
   (GameFinished r b) >>= _ = GameFinished r b
   (GameError e) >>= _ = GameError e
@@ -73,6 +79,7 @@ data GameError
   | ServerMoveError MoveError
   | GameIsNotFound
   | InvalidBoardSize
+  -- import Data.Text
   | InternalError Text
   deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
